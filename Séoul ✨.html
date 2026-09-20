@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Séoul ✨</title>
+<style>
+:root{
+  --pink:#e88fb5; --pink-d:#c96f96; --lav:#b9a6e0;
+  --bg:#fdf7fa; --card:#ffffff; --text:#33262e; --muted:#8a7b84; --border:#f0dfe8;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme: dark){
+    --bg:#221b20; --card:#2c232a; --text:#f3e9ee; --muted:#b09aa8; --border:#3c2f38;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#221b20; --card:#2c232a; --text:#f3e9ee; --muted:#b09aa8; --border:#3c2f38;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px); height:100%;}
+*{box-sizing:border-box;}
+body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+header{position:sticky;top:0;padding:calc(14px + env(safe-area-inset-top,0px)) 16px 10px;background:var(--bg);z-index:5;border-bottom:1px solid var(--border);}
+h1{margin:0 0 10px;font-size:1.3rem;display:flex;align-items:center;gap:8px;}
+.tabs{display:flex;gap:6px;}
+.tab{flex:1;padding:9px 6px;border-radius:12px;text-align:center;font-size:.85rem;font-weight:600;background:var(--card);color:var(--muted);border:1px solid var(--border);cursor:pointer;}
+.tab.active{background:var(--pink);color:#fff;border-color:var(--pink);}
+main{padding:14px 16px 90px;max-width:520px;margin:0 auto;}
+.view{display:none;}
+.view.active{display:block;}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;}
+.chip{flex:none;padding:6px 12px;border-radius:20px;font-size:.78rem;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;white-space:nowrap;}
+.chip.active{background:var(--lav);color:#fff;border-color:var(--lav);}
+.cat-group{margin-bottom:16px;}
+.cat-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 6px 2px;}
+.item{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 12px;margin-bottom:7px;}
+.item.done{opacity:.5;}
+.item.done .item-name{text-decoration:line-through;}
+.item-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--pink);flex:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;}
+.item.done .item-check{background:var(--pink);}
+.item-body{flex:1;min-width:0;}
+.item-name{font-weight:600;font-size:.92rem;}
+.item-note{font-size:.78rem;color:var(--muted);}
+.del{background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:2px 6px;}
+.map-btn{flex:none;width:34px;height:34px;border-radius:50%;background:#03c75a1a;color:#03c75a;display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;}
+.item-link{flex:none;width:34px;height:34px;border-radius:50%;background:#e88fb51a;color:var(--pink-d);display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;}
+.item-price{flex:none;font-size:.78rem;font-weight:700;color:var(--pink-d);}
+.tip-note{font-size:.82rem;color:var(--muted);margin-top:2px;}
+.empty{color:var(--muted);font-size:.85rem;text-align:center;padding:30px 10px;}
+.fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:20px;width:54px;height:54px;border-radius:50%;background:var(--pink);color:#fff;border:none;font-size:1.6rem;box-shadow:0 6px 16px rgba(200,100,140,.4);cursor:pointer;z-index:6;}
+.sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:10;}
+.sheet-bg.active{display:block;}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));z-index:11;transform:translateY(100%);transition:.25s;max-width:520px;margin:0 auto;}
+.sheet-bg.active .sheet{transform:translateY(0);}
+.sheet h3{margin:0 0 12px;}
+.field{margin-bottom:10px;}
+.field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:4px;}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.9rem;}
+.sheet-actions{display:flex;gap:8px;margin-top:14px;}
+.btn{flex:1;padding:11px;border-radius:12px;border:none;font-weight:600;font-size:.9rem;cursor:pointer;}
+.btn-primary{background:var(--pink);color:#fff;}
+.btn-secondary{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
+.budget-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.budget-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.budget-cat{font-weight:700;}
+.budget-nums{font-size:.8rem;color:var(--muted);}
+.bar-bg{height:8px;border-radius:6px;background:var(--border);overflow:hidden;}
+.bar-fill{height:100%;background:var(--pink);}
+.bar-fill.over{background:#d9534f;}
+.summary{background:linear-gradient(135deg,var(--pink),var(--lav));color:#fff;border-radius:16px;padding:16px;margin-bottom:16px;}
+.summary .big{font-size:1.5rem;font-weight:700;}
+.summary .row{display:flex;justify-content:space-between;font-size:.85rem;margin-top:6px;opacity:.95;}
+select option{color:#000;}
+.month-picker{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.month-picker input{flex:1;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem;}
+.month-picker button{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:10px;width:36px;height:36px;font-size:1.1rem;cursor:pointer;}
+.expenses{display:none;margin-top:10px;border-top:1px solid var(--border);padding-top:8px;}
+.expenses.open{display:block;}
+.exp-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:.82rem;}
+.exp-thumb{width:34px;height:34px;border-radius:8px;object-fit:cover;flex:none;background:var(--bg);}
+.exp-info{flex:1;min-width:0;}
+.exp-desc{color:var(--muted);font-size:.75rem;}
+.receipt-preview{width:60px;height:60px;border-radius:10px;object-fit:cover;margin-top:6px;display:none;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🌸 Séoul</h1>
+  <div class="tabs">
+    <div class="tab active" data-tab="itin">Itinéraire</div>
+    <div class="tab" data-tab="predep">Avant voyage</div>
+    <div class="tab" data-tab="budget">Budget</div>
+    <div class="tab" data-tab="tips">Conseils</div>
+  </div>
+</header>
+<main>
+  <div class="view active" id="view-itin">
+    <div class="chips" id="itin-chips"><div class="chip active" onclick="setFilter('Tout')">Tout</div><div class="chip " onclick="setFilter('Shopping')">Shopping</div><div class="chip " onclick="setFilter('Beauté / Soin')">Beauté / Soin</div><div class="chip " onclick="setFilter('Café')">Café</div><div class="chip " onclick="setFilter('Restaurant')">Restaurant</div><div class="chip " onclick="setFilter('Date avec copain')">Date avec copain</div><div class="chip " onclick="setFilter('Autre')">Autre</div></div>
+    <div id="itin-list"><div class="empty">Rien pour l'instant.<br>Appuie sur + pour ajouter une envie à Séoul 🌷</div></div>
+  </div>
+  <div class="view" id="view-predep">
+    <div class="summary" id="predep-summary"><div class="row" style="margin-top:0"><span>Budget avant départ</span><span></span></div>
+    <div class="big">0 € dépensés</div>
+    <div class="row"><span>Estimé total</span><span>0 €</span></div>
+    <div class="row"><span>Restant</span><span>0 €</span></div></div>
+    <div id="predep-list"><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Billet d'avion')">
+        <span class="budget-cat">Billet d'avion </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Billet d'avion',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Logement')">
+        <span class="budget-cat">Logement </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Logement',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Nourriture')">
+        <span class="budget-cat">Nourriture </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Nourriture',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Abonnement transport')">
+        <span class="budget-cat">Abonnement transport </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Abonnement transport',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Forfait téléphonique')">
+        <span class="budget-cat">Forfait téléphonique </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Forfait téléphonique',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Assurance voyage')">
+        <span class="budget-cat">Assurance voyage </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Assurance voyage',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Autres')">
+        <span class="budget-cat">Autres </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Autres',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
+    </div></div>
+  </div>
+  <div class="view" id="view-budget">
+    <div class="month-picker">
+      <button onclick="shiftMonth(-1)">‹</button>
+      <input type="month" id="month-input" value="2026-09">
+      <button onclick="shiftMonth(1)">›</button>
+    </div>
+    <div class="summary" id="budget-summary"><div class="row" style="margin-top:0;text-transform:capitalize"><span>septembre 2026</span><span></span></div>
+    <div class="big">0 € dépensés</div>
+    <div class="row"><span>Budget total</span><span>0 €</span></div>
+    <div class="row"><span>Restant</span><span>0 €</span></div></div>
+    <div id="budget-list"><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Beauté')">
+        <span class="budget-cat">Beauté </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Beauté',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Soins / Hôpital')">
+        <span class="budget-cat">Soins / Hôpital </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Soins / Hôpital',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Forfait téléphonique')">
+        <span class="budget-cat">Forfait téléphonique </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Forfait téléphonique',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Transport')">
+        <span class="budget-cat">Transport </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Transport',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Nourriture')">
+        <span class="budget-cat">Nourriture </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Nourriture',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Date')">
+        <span class="budget-cat">Date </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Date',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Shopping')">
+        <span class="budget-cat">Shopping </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Shopping',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div><div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('budget','Autre')">
+        <span class="budget-cat">Autre </span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="budget" onclick="event.stopPropagation()" onchange="setLimit('budget','Autre',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill " style="width:0%"></div></div>
+      <div class="budget-nums">0 € dépensés </div>
+      <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
+    </div></div>
+  </div>  <div class="view" id="view-tips">
+    <div class="chips" id="tips-chips"><div class="chip active" onclick="setTipsFilter('Tout')">Tout</div><div class="chip " onclick="setTipsFilter('Logement')">Logement</div><div class="chip " onclick="setTipsFilter('Transport')">Transport</div><div class="chip " onclick="setTipsFilter('Carte SIM')">Carte SIM</div><div class="chip " onclick="setTipsFilter('Visa étudiant')">Visa étudiant</div><div class="chip " onclick="setTipsFilter('Compte bancaire')">Compte bancaire</div><div class="chip " onclick="setTipsFilter('Incontournables')">Incontournables</div><div class="chip " onclick="setTipsFilter('Autre')">Autre</div></div>
+    <div id="tips-list"><div class="cat-group"><div class="cat-title">Logement</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">EnkoyStay</div><div class="tip-note">L'app que j'utilise pour trouver un logement en Corée, pratique pour les étudiants étrangers.</div></div>
+        
+        <a class="item-link" href="https://stay.enko.kr/" target="_blank" rel="noopener" title="Ouvrir le lien">🔗</a>
+        <button class="del" onclick="delTip('t1')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Transport</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Carte T-money</div><div class="tip-note">À prendre dès l'arrivée pour bus/métro, en vente dans n'importe quel convenience store (CU, GS25, 7-Eleven).</div></div>
+        
+        
+        <button class="del" onclick="delTip('t2')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Carte SIM</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Chingu Mobile</div><div class="tip-note">Opérateur pensé pour les étrangers, forfaits prépayés pratiques dès l'arrivée.</div></div>
+        
+        <a class="item-link" href="https://chingumobile.com/" target="_blank" rel="noopener" title="Ouvrir le lien">🔗</a>
+        <button class="del" onclick="delTip('t3')">×</button>
+      </div></div></div>
+  </div>
+</main>
+<button class="fab" id="fab">+</button>
+
+<div class="sheet-bg" id="sheet-itin">
+  <div class="sheet">
+    <h3>Ajouter à l'itinéraire</h3>
+    <div class="field"><label>Nom</label><input id="f-name" placeholder="Ex : Olive Young Myeongdong"></div>
+    <div class="field"><label>Catégorie</label>
+      <select id="f-cat">
+        <option selected="selected">Shopping</option><option>Beauté / Soin</option><option>Café</option>
+        <option>Restaurant</option><option>Date avec copain</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="field"><label>Note (optionnel)</label><input id="f-note" placeholder="Adresse, horaire..."></div>
+    <div class="field"><label>Lieu (pour Naver Map)</label><input id="f-place" placeholder="Ex : Olive Young Myeongdong"></div>
+    <div class="field"><label>Ou colle un lien Naver Map (optionnel)</label><input id="f-navlink" placeholder="https://naver.me/..."></div>
+    <div class="sheet-actions">
+      <button class="btn btn-secondary" onclick="closeSheets()">Annuler</button>
+      <button class="btn btn-primary" onclick="addItin()">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet-bg" id="sheet-budget">
+  <div class="sheet">
+    <h3>Ajouter une dépense</h3>
+    <div class="field"><label>Catégorie</label>
+      <select id="b-cat">
+        <option selected="selected">Beauté</option><option>Soins / Hôpital</option><option>Forfait téléphonique</option>
+        <option>Transport</option><option>Nourriture</option><option>Date</option>
+        <option>Shopping</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="field"><label>Montant (€)</label><input id="b-amount" type="number" inputmode="decimal" placeholder="0"></div>
+    <div class="field"><label>Description (optionnel)</label><input id="b-desc" placeholder="Ex : sérum vitamine C"></div>
+    <div class="field"><label>Ticket de caisse (photo, optionnel)</label>
+      <input type="file" accept="image/*" capture="environment" id="b-receipt" onchange="previewReceipt()">
+      <img id="receipt-preview" class="receipt-preview">
+    </div>
+</div>
+
+<div class="sheet-bg" id="sheet-tips">
+  <div class="sheet">
+    <h3>Ajouter un conseil</h3>
+    <div class="field"><label>Titre</label><input id="t-title" placeholder="Ex : EnkoyStay"></div>
+    <div class="field"><label>Catégorie</label>
+      <select id="t-cat">
+        <option selected="selected">Logement</option><option>Transport</option><option>Carte SIM</option>
+        <option>Visa étudiant</option><option>Compte bancaire</option><option>Incontournables</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="field"><label>Astuce / détails</label><textarea id="t-note" rows="3" placeholder="Explique ton tip..."></textarea></div>
+    <div class="field"><label>Lien (optionnel)</label><input id="t-link" placeholder="https://..."></div>
+    <div class="field"><label>Prix (optionnel, €)</label><input id="t-price" type="number" inputmode="decimal" placeholder="0"></div>
+    <div class="sheet-actions">
+      <button class="btn btn-secondary" onclick="closeSheets()">Annuler</button>
+      <button class="btn btn-primary" onclick="addTip()">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ITIN_CATS=["Shopping","Beauté / Soin","Café","Restaurant","Date avec copain","Autre"];
+const BUD_CATS=["Beauté","Soins / Hôpital","Forfait téléphonique","Transport","Nourriture","Date","Shopping","Autre"];
+const PRE_CATS=["Billet d'avion","Logement","Nourriture","Abonnement transport","Forfait téléphonique","Assurance voyage","Autres"];
+const TIP_CATS=["Logement","Transport","Carte SIM","Visa étudiant","Compte bancaire","Incontournables","Autre"];
+let itin=[],budgetData={},predepData={},tips=[],curTab="itin",curFilter="Tout",tipsFilter="Tout",curMonth=monthKeyNow(),curReceipt=null,openCat=null,openSource="budget",sheetMode="budget";
+
+function monthKeyNow(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function ensureMonth(key){
+  if(!budgetData[key]) budgetData[key]={};
+  BUD_CATS.forEach(c=>{ if(!budgetData[key][c]) budgetData[key][c]={limit:0,expenses:[]}; });
+}
+function shiftMonth(n){
+  const [y,m]=curMonth.split('-').map(Number);
+  const d=new Date(y,m-1+n,1);
+  curMonth=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+  document.getElementById('month-input').value=curMonth;
+  ensureMonth(curMonth); openCat=null; renderBudget();
+}
+
+function load(){
+  try{ itin=JSON.parse(localStorage.getItem('seoul_itin')||'[]'); }catch(e){ itin=[]; }
+  try{ budgetData=JSON.parse(localStorage.getItem('seoul_budget_v2')||'{}'); }catch(e){ budgetData={}; }
+  try{ predepData=JSON.parse(localStorage.getItem('seoul_predep')||'{}'); }catch(e){ predepData={}; }
+  try{ tips=JSON.parse(localStorage.getItem('seoul_tips')||'null'); }catch(e){ tips=null; }
+  if(tips===null){
+    tips=[
+      {id:'t1',title:'EnkoyStay',cat:'Logement',note:"L'app que j'utilise pour trouver un logement en Corée, pratique pour les étudiants étrangers.",link:'https://stay.enko.kr',price:null},
+      {id:'t2',title:'Carte T-money',cat:'Transport',note:"À prendre dès l'arrivée pour bus/métro, en vente dans n'importe quel convenience store (CU, GS25, 7-Eleven).",link:'',price:null},
+      {id:'t3',title:'Chingu Mobile',cat:'Carte SIM',note:"Opérateur pensé pour les étrangers, forfaits prépayés pratiques dès l'arrivée.",link:'https://chingumobile.com',price:null}
+    ];
+  }
+  // migration depuis l'ancienne version sans mois
+  if(Object.keys(budgetData).length===0){
+    try{
+      const old=JSON.parse(localStorage.getItem('seoul_budget')||'{}');
+      if(Object.keys(old).length){ budgetData[monthKeyNow()]=old; }
+    }catch(e){}
+  }
+  ensureMonth(curMonth);
+  PRE_CATS.forEach(c=>{ if(!predepData[c]) predepData[c]={limit:0,expenses:[]}; });
+}
+function save(){
+  try{ localStorage.setItem('seoul_itin',JSON.stringify(itin)); }catch(e){}
+  try{ localStorage.setItem('seoul_budget_v2',JSON.stringify(budgetData)); }catch(e){ alert("Stockage plein : essaie avec des photos de reçus plus légères."); }
+  try{ localStorage.setItem('seoul_predep',JSON.stringify(predepData)); }catch(e){}
+  try{ localStorage.setItem('seoul_tips',JSON.stringify(tips)); }catch(e){}
+}
+
+function renderChips(){
+  const el=document.getElementById('itin-chips');
+  const cats=["Tout",...ITIN_CATS];
+  el.innerHTML=cats.map(c=>`<div class="chip ${c===curFilter?'active':''}" onclick="setFilter('${c}')">${c}</div>`).join('');
+}
+function setFilter(c){ curFilter=c; renderChips(); renderItin(); }
+
+function renderItin(){
+  const list=document.getElementById('itin-list');
+  const cats = curFilter==="Tout" ? ITIN_CATS : [curFilter];
+  let html='';
+  let any=false;
+  cats.forEach(cat=>{
+    const items=itin.filter(i=>i.cat===cat);
+    if(items.length===0) return;
+    any=true;
+    html+=`<div class="cat-group"><div class="cat-title">${cat}</div>`;
+    items.forEach(i=>{
+      const query=encodeURIComponent(i.place||i.name);
+      const mapHref = i.navlink ? i.navlink : `https://map.naver.com/p/search/${query}`;
+      html+=`<div class="item ${i.done?'done':''}">
+        <div class="item-check" onclick="toggleItin('${i.id}')">${i.done?'✓':''}</div>
+        <div class="item-body"><div class="item-name">${escapeHtml(i.name)}</div>${i.note?`<div class="item-note">${escapeHtml(i.note)}</div>`:''}</div>
+        <a class="map-btn" href="${mapHref}" target="_blank" rel="noopener" title="Ouvrir dans Naver Map">📍</a>
+        <button class="del" onclick="delItin('${i.id}')">×</button>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  list.innerHTML = any ? html : `<div class="empty">Rien pour l'instant.<br>Appuie sur + pour ajouter une envie à Séoul 🌷</div>`;
+}
+function toggleItin(id){ const it=itin.find(i=>i.id===id); if(it){it.done=!it.done; save(); renderItin();} }
+function delItin(id){ itin=itin.filter(i=>i.id!==id); save(); renderItin(); }
+function addItin(){
+  const name=document.getElementById('f-name').value.trim();
+  if(!name) return;
+  itin.push({id:Date.now().toString(),name,cat:document.getElementById('f-cat').value,note:document.getElementById('f-note').value.trim(),place:document.getElementById('f-place').value.trim(),navlink:document.getElementById('f-navlink').value.trim(),done:false});
+  document.getElementById('f-name').value=''; document.getElementById('f-note').value=''; document.getElementById('f-place').value=''; document.getElementById('f-navlink').value='';
+  save(); renderItin(); closeSheets();
+}
+
+function renderTipsChips(){
+  const el=document.getElementById('tips-chips');
+  const cats=["Tout",...TIP_CATS];
+  el.innerHTML=cats.map(c=>`<div class="chip ${c===tipsFilter?'active':''}" onclick="setTipsFilter('${c}')">${c}</div>`).join('');
+}
+function setTipsFilter(c){ tipsFilter=c; renderTipsChips(); renderTips(); }
+function renderTips(){
+  const list=document.getElementById('tips-list');
+  const cats = tipsFilter==="Tout" ? TIP_CATS : [tipsFilter];
+  let html=''; let any=false;
+  cats.forEach(cat=>{
+    const items=tips.filter(t=>t.cat===cat);
+    if(items.length===0) return;
+    any=true;
+    html+=`<div class="cat-group"><div class="cat-title">${cat}</div>`;
+    items.forEach(t=>{
+      html+=`<div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">${escapeHtml(t.title)}</div>${t.note?`<div class="tip-note">${escapeHtml(t.note)}</div>`:''}</div>
+        ${t.price?`<div class="item-price">${Number(t.price).toFixed(0)} €</div>`:''}
+        ${t.link?`<a class="item-link" href="${t.link}" target="_blank" rel="noopener" title="Ouvrir le lien">🔗</a>`:''}
+        <button class="del" onclick="delTip('${t.id}')">×</button>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  list.innerHTML = any ? html : `<div class="empty">Pas encore de conseils.<br>Appuie sur + pour ajouter ton premier tip 💡</div>`;
+}
+function delTip(id){ tips=tips.filter(t=>t.id!==id); save(); renderTips(); }
+function addTip(){
+  const title=document.getElementById('t-title').value.trim();
+  if(!title) return;
+  let link=document.getElementById('t-link').value.trim();
+  if(link && !/^https?:\/\//i.test(link)) link='https://'+link;
+  tips.push({id:Date.now().toString(),title,cat:document.getElementById('t-cat').value,note:document.getElementById('t-note').value.trim(),link,price:document.getElementById('t-price').value?Number(document.getElementById('t-price').value):null});
+  document.getElementById('t-title').value=''; document.getElementById('t-note').value=''; document.getElementById('t-link').value=''; document.getElementById('t-price').value='';
+  save(); renderTips(); closeSheets();
+}
+
+function renderBudgetLike(source){
+  const cats = source==='predep' ? PRE_CATS : BUD_CATS;
+  const dataObj = source==='predep' ? predepData : budgetData[curMonth];
+  const listId = source==='predep' ? 'predep-list' : 'budget-list';
+  const summaryId = source==='predep' ? 'predep-summary' : 'budget-summary';
+  let totalLimit=0, totalSpent=0;
+  const list=document.getElementById(listId);
+  let html='';
+  cats.forEach(cat=>{
+    const b=dataObj[cat];
+    const spent=b.expenses.reduce((s,e)=>s+e.amount,0);
+    totalLimit+=Number(b.limit)||0; totalSpent+=spent;
+    const pct = b.limit>0 ? Math.min(100,(spent/b.limit)*100) : (spent>0?100:0);
+    const over = b.limit>0 && spent>b.limit;
+    const isOpen = openCat===cat && openSource===source;
+    html+=`<div class="budget-card">
+      <div class="budget-top" style="cursor:pointer" onclick="toggleCat('${source}','${cat}')">
+        <span class="budget-cat">${cat} ${b.expenses.length?`<span style="color:var(--muted);font-weight:400;font-size:.75rem">(${b.expenses.length})</span>`:''}</span>
+        <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" value="${b.limit||''}" placeholder="${source==='predep'?'estimé':'budget'}" onclick="event.stopPropagation()" onchange="setLimit('${source}','${cat}',this.value)">
+      </div>
+      <div class="bar-bg"><div class="bar-fill ${over?'over':''}" style="width:${pct}%"></div></div>
+      <div class="budget-nums">${spent.toFixed(0)} € dépensés ${b.limit>0?`/ ${Number(b.limit).toFixed(0)} € ${source==='predep'?'estimé':''}`:''}</div>
+      <div class="expenses ${isOpen?'open':''}">${b.expenses.length? b.expenses.map(e=>`
+        <div class="exp-row">
+          ${e.img?`<img class="exp-thumb" src="${e.img}">`:'<div class="exp-thumb"></div>'}
+          <div class="exp-info">${e.desc?escapeHtml(e.desc):'<span class="exp-desc">Sans description</span>'}<div class="exp-desc">${new Date(e.date).toLocaleDateString('fr-FR')}</div></div>
+          <div>${e.amount.toFixed(0)} €</div>
+          <button class="del" onclick="delExpense('${source}','${cat}','${e.id}')">×</button>
+        </div>`).join('') : `<div class="exp-desc">${source==='predep'?'Aucune dépense pour le moment.':'Aucune dépense ce mois-ci.'}</div>`}</div>
+    </div>`;
+  });
+  list.innerHTML=html;
+  const remain=totalLimit-totalSpent;
+  let head='';
+  if(source==='predep'){
+    head=`<div class="row" style="margin-top:0"><span>Budget avant départ</span><span></span></div>`;
+  }else{
+    const [y,m]=curMonth.split('-');
+    const label=new Date(y,m-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+    head=`<div class="row" style="margin-top:0;text-transform:capitalize"><span>${label}</span><span></span></div>`;
+  }
+  document.getElementById(summaryId).innerHTML=`${head}
+    <div class="big">${totalSpent.toFixed(0)} € dépensés</div>
+    <div class="row"><span>${source==='predep'?'Estimé':'Budget'} total</span><span>${totalLimit.toFixed(0)} €</span></div>
+    <div class="row"><span>Restant</span><span>${remain.toFixed(0)} €</span></div>`;
+}
+function renderBudget(){ renderBudgetLike('budget'); }
+function renderPredep(){ renderBudgetLike('predep'); }
+function toggleCat(source,cat){ if(openCat===cat && openSource===source){ openCat=null; } else { openCat=cat; openSource=source; } renderBudgetLike(source); }
+function setLimit(source,cat,val){ const obj=source==='predep'?predepData:budgetData[curMonth]; obj[cat].limit=Number(val)||0; save(); renderBudgetLike(source); }
+function delExpense(source,cat,id){ const obj=source==='predep'?predepData:budgetData[curMonth]; obj[cat].expenses=obj[cat].expenses.filter(e=>e.id!==id); save(); renderBudgetLike(source); }
+
+function previewReceipt(){
+  const file=document.getElementById('b-receipt').files[0];
+  if(!file){ curReceipt=null; return; }
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      const maxW=500;
+      const scale=Math.min(1,maxW/img.width);
+      const canvas=document.createElement('canvas');
+      canvas.width=img.width*scale; canvas.height=img.height*scale;
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      curReceipt=canvas.toDataURL('image/jpeg',0.55);
+      const prev=document.getElementById('receipt-preview');
+      prev.src=curReceipt; prev.style.display='block';
+    };
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function addExpense(){
+  const cat=document.getElementById('b-cat').value;
+  const amount=Number(document.getElementById('b-amount').value);
+  if(!amount||amount<=0) return;
+  const obj = sheetMode==='predep' ? predepData : budgetData[curMonth];
+  obj[cat].expenses.push({id:Date.now().toString(),amount,desc:document.getElementById('b-desc').value.trim(),date:new Date().toISOString(),img:curReceipt});
+  document.getElementById('b-amount').value=''; document.getElementById('b-desc').value='';
+  document.getElementById('b-receipt').value=''; document.getElementById('receipt-preview').style.display='none'; curReceipt=null;
+  openCat=cat; openSource=sheetMode;
+  save(); renderBudgetLike(sheetMode); closeSheets();
+}
+
+function escapeHtml(s){ const d=document.createElement('div'); d.innerText=s; return d.innerHTML; }
+function closeSheets(){ document.getElementById('sheet-itin').classList.remove('active'); document.getElementById('sheet-budget').classList.remove('active'); document.getElementById('sheet-tips').classList.remove('active'); }
+
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  curTab=t.dataset.tab;
+  document.getElementById('view-itin').classList.toggle('active',curTab==='itin');
+  document.getElementById('view-predep').classList.toggle('active',curTab==='predep');
+  document.getElementById('view-budget').classList.toggle('active',curTab==='budget');
+  document.getElementById('view-tips').classList.toggle('active',curTab==='tips');
+}));
+document.getElementById('fab').addEventListener('click',()=>{
+  if(curTab==='itin'){ document.getElementById('sheet-itin').classList.add('active'); return; }
+  if(curTab==='tips'){ document.getElementById('sheet-tips').classList.add('active'); return; }
+  sheetMode = curTab==='predep' ? 'predep' : 'budget';
+  const cats = sheetMode==='predep' ? PRE_CATS : BUD_CATS;
+  document.getElementById('b-cat').innerHTML = cats.map(c=>`<option>${c}</option>`).join('');
+  document.getElementById('sheet-budget').classList.add('active');
+});
+document.getElementById('sheet-itin').addEventListener('click',e=>{ if(e.target.id==='sheet-itin') closeSheets(); });
+document.getElementById('sheet-budget').addEventListener('click',e=>{ if(e.target.id==='sheet-budget') closeSheets(); });
+document.getElementById('sheet-tips').addEventListener('click',e=>{ if(e.target.id==='sheet-tips') closeSheets(); });
+
+load(); document.getElementById('month-input').value=curMonth;
+document.getElementById('month-input').addEventListener('change',function(){ curMonth=this.value; ensureMonth(curMonth); openCat=null; renderBudget(); });
+renderChips(); renderItin(); renderBudget(); renderPredep(); renderTipsChips(); renderTips();
+</script>
+
+
+</div></body></html>
