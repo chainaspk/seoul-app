@@ -98,7 +98,7 @@ select option{color:#000;}
 </header>
 <main>
   <div class="view active" id="view-itin">
-    <div class="chips" id="itin-chips"><div class="chip active" onclick="setFilter('Tout')">Tout</div><div class="chip " onclick="setFilter('Shopping')">Shopping</div><div class="chip " onclick="setFilter('Beauté / Soin')">Beauté / Soin</div><div class="chip " onclick="setFilter('Café')">Café</div><div class="chip " onclick="setFilter('Restaurant')">Restaurant</div><div class="chip " onclick="setFilter('Date avec copain')">Date avec copain</div><div class="chip " onclick="setFilter('Autre')">Autre</div></div>
+    <div class="chips" id="itin-chips"><div class="chip active" onclick="setFilter('Tout')">Tout</div><div class="chip " onclick="setFilter('Shopping')">Shopping</div><div class="chip " onclick="setFilter('Restaurant')">Restaurant</div><div class="chip " onclick="setFilter('Café')">Café</div><div class="chip " onclick="setFilter('Activités')">Activités</div><div class="chip " onclick="setFilter('Beauté / Soins')">Beauté / Soins</div><div class="chip " onclick="setFilter('Bar')">Bar</div><div class="chip " onclick="setFilter('Brunch')">Brunch</div><div class="chip " onclick="setFilter('Musée')">Musée</div><div class="chip" onclick="manageCats()" style="border-style:dashed">⚙️ Catégories</div></div>
     <div id="itin-list"><div class="empty">Rien pour l'instant.<br>Appuie sur + pour ajouter une envie à Séoul 🌷</div></div>
   </div>
   <div class="view" id="view-predep">
@@ -240,22 +240,127 @@ select option{color:#000;}
       <div class="expenses "><div class="exp-desc">Aucune dépense ce mois-ci.</div></div>
     </div></div>
   </div>  <div class="view" id="view-tips">
-    <div class="chips" id="tips-chips"><div class="chip active" onclick="setTipsFilter('Tout')">Tout</div><div class="chip " onclick="setTipsFilter('Logement')">Logement</div><div class="chip " onclick="setTipsFilter('Transport')">Transport</div><div class="chip " onclick="setTipsFilter('Carte SIM')">Carte SIM</div><div class="chip " onclick="setTipsFilter('Visa étudiant')">Visa étudiant</div><div class="chip " onclick="setTipsFilter('Compte bancaire')">Compte bancaire</div><div class="chip " onclick="setTipsFilter('Incontournables')">Incontournables</div><div class="chip " onclick="setTipsFilter('Autre')">Autre</div></div>
+    <div class="chips" id="tips-chips"><div class="chip active" onclick="setTipsFilter('Tout')">Tout</div><div class="chip " onclick="setTipsFilter('Logement')">Logement</div><div class="chip " onclick="setTipsFilter('ARC')">ARC</div><div class="chip " onclick="setTipsFilter('Banque')">Banque</div><div class="chip " onclick="setTipsFilter('Santé')">Santé</div><div class="chip " onclick="setTipsFilter('Transport')">Transport</div><div class="chip " onclick="setTipsFilter('Carte SIM')">Carte SIM</div><div class="chip " onclick="setTipsFilter('Applis')">Applis</div><div class="chip " onclick="setTipsFilter('Coréen')">Coréen</div><div class="chip " onclick="setTipsFilter('Vie quotidienne')">Vie quotidienne</div><div class="chip " onclick="setTipsFilter('Rencontrer du monde')">Rencontrer du monde</div><div class="chip " onclick="setTipsFilter('Sortir')">Sortir</div><div class="chip " onclick="setTipsFilter('Urgences')">Urgences</div><div class="chip " onclick="setTipsFilter('Autre')">Autre</div></div>
     <div id="tips-list"><div class="cat-group"><div class="cat-title">Logement</div><div class="item" style="align-items:flex-start">
-        <div class="item-body"><div class="item-name">EnkoyStay</div><div class="tip-note">L'app que j'utilise pour trouver un logement en Corée, pratique pour les étudiants étrangers.</div></div>
+        <div class="item-body"><div class="item-name">Sites &amp; apps pour chercher</div><div class="tip-note">EnkoyStay et LiveAnywhere.me sont les deux plateformes que je recommande pour les étrangers. Regarde aussi Dabang, Zigbang et Naver Real Estate, les plus utilisés par les Coréens.</div></div>
         
         <a class="item-link" href="https://stay.enko.kr/" target="_blank" rel="noopener" title="Ouvrir le lien">🔗</a>
-        <button class="del" onclick="delTip('t1')">×</button>
+        <button class="del" onclick="delTip('s1')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Groupes Facebook</div><div class="tip-note">Seoul Housing &amp; Living Community, et Seoul Housing Rent - Active Room Search. Très actifs, souvent des offres de sous-location entre étudiants.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s2')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Goshiwon / goshipages</div><div class="tip-note">Petites chambres bon marché, tout équipé, sans gros dépôt. Idéal pour un premier mois ou un petit budget. Voir goshipages.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s3')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Résidences universitaires</div><div class="tip-note">Le plus simple pour un semestre : proche des cours, on rencontre vite du monde. Attention aux règles internes et aux horaires. Myongji, Hankuk (HUFS), Sungkyunkwan, Ajou.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s4')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Wolse vs Jeonse</div><div class="tip-note">Wolse (월세) = dépôt + loyer mensuel, c'est ce qui convient à un échange. Jeonse (전세) = très gros dépôt rendu en fin de contrat : peu adapté à un étudiant.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s5')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Checklist avant de signer</div><div class="tip-note">Dépôt, loyer, charges (관리비), internet, machine à laver, lit, bureau, chauffage, clim, cuisine, durée du contrat, conditions de récupération du dépôt, distance fac, métro le plus proche. Et surtout : visite le logement en vrai, ne te fie pas qu'aux photos (recommandation officielle Study in Korea).</div></div>
+        
+        
+        <button class="del" onclick="delTip('s6')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Les 4 types de logement</div><div class="tip-note">Dortoir universitaire (simple, social) / One-room studio (indépendant, plus cher) / Colocation (social, vérifier ce qui est inclus) / Homestay (pratiquer le coréen).</div></div>
+        
+        
+        <button class="del" onclick="delTip('s7')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">ARC</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">C'est quoi l'ARC ?</div><div class="tip-note">Alien Registration Card : ta carte de résident. Indispensable pour à peu près toutes les démarches (banque, forfait postpayé, assurance santé).</div></div>
+        
+        
+        <button class="del" onclick="delTip('s8')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Checklist ARC</div><div class="tip-note">Vérifier mon type de visa (D-2, D-4...), passeport, documents demandés, enregistrer ma résidence, réserver le rendez-vous immigration, faire la procédure, vérifier les infos sur la carte, garder une copie de tout. ⚠️ Les documents exacts changent selon le visa et la nationalité : vérifie toujours sur le site officiel de l'immigration avant ton rendez-vous.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s9')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Banque</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Ouvrir un compte</div><div class="tip-note">Généralement demandé : ARC, passeport, certificat d'inscription universitaire, numéro de téléphone coréen. Sans ARC, certaines banques limitent fortement le compte.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s10')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Gérer son argent</div><div class="tip-note">Garde ta carte française pour le début (attention aux frais). Sur place : carte coréenne, KakaoPay, Naver Pay, Toss. La Corée est très peu cash, mais garde un peu d'espèces pour les petits marchés.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s11')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Santé</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Je suis malade</div><div class="tip-note">Clinique (의원) pour les petits soucis, hôpital (병원) pour le reste. Pharmacie = 약국. Papago pour traduire les symptômes. Beaucoup de cliniques dans les quartiers étudiants ont du personnel anglophone.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s12')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Assurance santé</div><div class="tip-note">Assurance voyage/étudiante avant de partir, et renseigne-toi sur le NHIS (assurance maladie nationale) : les résidents étrangers sont concernés selon leur situation, et le NHIS a des guichets dédiés aux étrangers.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s13')">×</button>
       </div></div><div class="cat-group"><div class="cat-title">Transport</div><div class="item" style="align-items:flex-start">
-        <div class="item-body"><div class="item-name">Carte T-money</div><div class="tip-note">À prendre dès l'arrivée pour bus/métro, en vente dans n'importe quel convenience store (CU, GS25, 7-Eleven).</div></div>
+        <div class="item-body"><div class="item-name">Carte T-money</div><div class="tip-note">À acheter dès l'arrivée dans n'importe quel convenience store (CU, GS25, 7-Eleven). Marche dans le métro, les bus et même certains taxis. Recharge en espèces au comptoir ou en borne.</div></div>
         
         
-        <button class="del" onclick="delTip('t2')">×</button>
+        <button class="del" onclick="delTip('s16')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Se déplacer</div><div class="tip-note">Métro et bus pour le quotidien, KTX pour les grandes distances, bus interurbains moins chers, Kakao T pour les taxis. Le métro s'arrête vers minuit : prévois ton retour de soirée.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s17')">×</button>
       </div></div><div class="cat-group"><div class="cat-title">Carte SIM</div><div class="item" style="align-items:flex-start">
-        <div class="item-body"><div class="item-name">Chingu Mobile</div><div class="tip-note">Opérateur pensé pour les étrangers, forfaits prépayés pratiques dès l'arrivée.</div></div>
+        <div class="item-body"><div class="item-name">Carte SIM</div><div class="tip-note">À l'arrivée : eSIM ou SIM touristique pour avoir internet tout de suite à l'aéroport. Ensuite : forfait coréen. Prépayé = passeport suffit en général ; postpayé = ARC requise. Chingu Mobile est pensé pour les étrangers.</div></div>
         
         <a class="item-link" href="https://chingumobile.com/" target="_blank" rel="noopener" title="Ouvrir le lien">🔗</a>
-        <button class="del" onclick="delTip('t3')">×</button>
+        <button class="del" onclick="delTip('s19')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Applis</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Les applis à installer J-1</div><div class="tip-note">Naver Map et KakaoMap (Google Maps ne marche pas bien en Corée), Papago (traduction), KakaoTalk (tout le monde l'utilise), Kakao T (taxi), Korail (trains), Coupang Eats ou Baemin (livraison), Toss (paiements).</div></div>
+        
+        
+        <button class="del" onclick="delTip('s18')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Coréen</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Les phrases de base</div><div class="tip-note">안녕하세요 bonjour · 감사합니다 merci · 죄송합니다 désolé · 이거 얼마예요? combien ça coûte ? · 화장실 어디예요? où sont les toilettes ? · 영어 할 수 있어요? vous parlez anglais ? · 한국어 잘 못해요 je ne parle pas bien coréen.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s20')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Vie quotidienne</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Ce qu'on découvre sur place</div><div class="tip-note">Tri des déchets très strict (sacs payants par quartier), laverie automatique, livraison ultra rapide, convenience stores ouverts 24h qui dépannent pour tout, impression de documents dans les CU/GS25.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s21')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Rencontrer du monde</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Où rencontrer du monde</div><div class="tip-note">À la fac : clubs étudiants, buddy program, associations internationales, cours de langue. En dehors : language exchange, cafés linguistiques, sport, rando, bénévolat. Conseil : ne reste pas qu'avec des internationaux, va là où il y a des Coréens.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s22')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Sortir</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Sortir à Séoul</div><div class="tip-note">Hongdae = ambiance étudiante, bars et clubs abordables. Itaewon = international. Gangnam = plus premium. Déroulé typique d'une soirée : dîner → 술집 → deuxième bar → noraebang (karaoké).</div></div>
+        
+        
+        <button class="del" onclick="delTip('s23')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Sécurité en soirée</div><div class="tip-note">Téléphone chargé, partage ta localisation avec une amie, prévois ton retour (le métro ferme vers minuit), ne laisse pas ton verre sans surveillance, rentre accompagnée si possible.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s24')">×</button>
+      </div></div><div class="cat-group"><div class="cat-title">Urgences</div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">Numéros d'urgence</div><div class="tip-note">112 police · 119 ambulance et pompiers · 1339 informations médicales. Note aussi le numéro de ton ambassade et celui du bureau international de ta fac.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s14')">×</button>
+      </div><div class="item" style="align-items:flex-start">
+        <div class="item-body"><div class="item-name">J'ai perdu quelque chose</div><div class="tip-note">Passeport perdu → ambassade immédiatement. Téléphone → Find My / centre objets trouvés du métro (très efficace en Corée). Carte bancaire → opposition depuis l'app de ta banque en premier.</div></div>
+        
+        
+        <button class="del" onclick="delTip('s15')">×</button>
       </div></div></div>
   </div>
 </main>
@@ -266,10 +371,7 @@ select option{color:#000;}
     <h3>Ajouter à l'itinéraire</h3>
     <div class="field"><label>Nom</label><input id="f-name" placeholder="Ex : Olive Young Myeongdong"></div>
     <div class="field"><label>Catégorie</label>
-      <select id="f-cat">
-        <option selected="selected">Shopping</option><option>Beauté / Soin</option><option>Café</option>
-        <option>Restaurant</option><option>Date avec copain</option><option>Autre</option>
-      </select>
+      <select id="f-cat"></select>
     </div>
     <div class="field"><label>Note (optionnel)</label><input id="f-note" placeholder="Adresse, horaire..."></div>
     <div class="field"><label>Lieu (pour Naver Map)</label><input id="f-place" placeholder="Ex : Olive Young Myeongdong"></div>
@@ -304,10 +406,7 @@ select option{color:#000;}
     <h3>Ajouter un conseil</h3>
     <div class="field"><label>Titre</label><input id="t-title" placeholder="Ex : EnkoyStay"></div>
     <div class="field"><label>Catégorie</label>
-      <select id="t-cat">
-        <option selected="selected">Logement</option><option>Transport</option><option>Carte SIM</option>
-        <option>Visa étudiant</option><option>Compte bancaire</option><option>Incontournables</option><option>Autre</option>
-      </select>
+      <select id="t-cat"></select>
     </div>
     <div class="field"><label>Astuce / détails</label><textarea id="t-note" rows="3" placeholder="Explique ton tip..."></textarea></div>
     <div class="field"><label>Lien (optionnel)</label><input id="t-link" placeholder="https://..."></div>
@@ -320,10 +419,10 @@ select option{color:#000;}
 </div>
 
 <script>
-const ITIN_CATS=["Shopping","Beauté / Soin","Café","Restaurant","Date avec copain","Autre"];
+let ITIN_CATS=["Shopping","Restaurant","Café","Activités","Beauté / Soins","Bar","Brunch","Musée"];
 const BUD_CATS=["Beauté","Soins / Hôpital","Forfait téléphonique","Transport","Nourriture","Date","Shopping","Autre"];
 const PRE_CATS=["Billet d'avion","Logement","Nourriture","Abonnement transport","Forfait téléphonique","Assurance voyage","Autres"];
-const TIP_CATS=["Logement","Transport","Carte SIM","Visa étudiant","Compte bancaire","Incontournables","Autre"];
+const TIP_CATS=["Logement","ARC","Banque","Santé","Transport","Carte SIM","Applis","Coréen","Vie quotidienne","Rencontrer du monde","Sortir","Urgences","Autre"];
 let itin=[],budgetData={},predepData={},tips=[],curTab="itin",curFilter="Tout",tipsFilter="Tout",curMonth=monthKeyNow(),curReceipt=null,openCat=null,openSource="budget",sheetMode="budget";
 
 function monthKeyNow(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
@@ -343,14 +442,38 @@ function load(){
   try{ itin=JSON.parse(localStorage.getItem('seoul_itin')||'[]'); }catch(e){ itin=[]; }
   try{ budgetData=JSON.parse(localStorage.getItem('seoul_budget_v2')||'{}'); }catch(e){ budgetData={}; }
   try{ predepData=JSON.parse(localStorage.getItem('seoul_predep')||'{}'); }catch(e){ predepData={}; }
+  try{ const c=JSON.parse(localStorage.getItem('seoul_itincats')||'null'); if(Array.isArray(c)&&c.length) ITIN_CATS=c; }catch(e){}
+  itin.forEach(t=>{ if(t.cat && !ITIN_CATS.includes(t.cat)) ITIN_CATS.push(t.cat); });
   try{ tips=JSON.parse(localStorage.getItem('seoul_tips')||'null'); }catch(e){ tips=null; }
-  if(tips===null){
-    tips=[
-      {id:'t1',title:'EnkoyStay',cat:'Logement',note:"L'app que j'utilise pour trouver un logement en Corée, pratique pour les étudiants étrangers.",link:'https://stay.enko.kr',price:null},
-      {id:'t2',title:'Carte T-money',cat:'Transport',note:"À prendre dès l'arrivée pour bus/métro, en vente dans n'importe quel convenience store (CU, GS25, 7-Eleven).",link:'',price:null},
-      {id:'t3',title:'Chingu Mobile',cat:'Carte SIM',note:"Opérateur pensé pour les étrangers, forfaits prépayés pratiques dès l'arrivée.",link:'https://chingumobile.com',price:null}
-    ];
-  }
+  if(tips===null) tips=[];
+  const SEED=[
+   ['s1','Sites & apps pour chercher','Logement',"EnkoyStay et LiveAnywhere.me sont les deux plateformes que je recommande pour les étrangers. Regarde aussi Dabang, Zigbang et Naver Real Estate, les plus utilisés par les Coréens.",'https://stay.enko.kr'],
+   ['s2','Groupes Facebook','Logement',"Seoul Housing & Living Community, et Seoul Housing Rent - Active Room Search. Très actifs, souvent des offres de sous-location entre étudiants.",''],
+   ['s3','Goshiwon / goshipages','Logement',"Petites chambres bon marché, tout équipé, sans gros dépôt. Idéal pour un premier mois ou un petit budget. Voir goshipages.",''],
+   ['s4','Résidences universitaires','Logement',"Le plus simple pour un semestre : proche des cours, on rencontre vite du monde. Attention aux règles internes et aux horaires. Myongji, Hankuk (HUFS), Sungkyunkwan, Ajou.",''],
+   ['s5','Wolse vs Jeonse','Logement',"Wolse (월세) = dépôt + loyer mensuel, c'est ce qui convient à un échange. Jeonse (전세) = très gros dépôt rendu en fin de contrat : peu adapté à un étudiant.",''],
+   ['s6','Checklist avant de signer','Logement',"Dépôt, loyer, charges (관리비), internet, machine à laver, lit, bureau, chauffage, clim, cuisine, durée du contrat, conditions de récupération du dépôt, distance fac, métro le plus proche. Et surtout : visite le logement en vrai, ne te fie pas qu'aux photos (recommandation officielle Study in Korea).",''],
+   ['s7','Les 4 types de logement','Logement',"Dortoir universitaire (simple, social) / One-room studio (indépendant, plus cher) / Colocation (social, vérifier ce qui est inclus) / Homestay (pratiquer le coréen).",''],
+   ['s8','C\'est quoi l\'ARC ?','ARC',"Alien Registration Card : ta carte de résident. Indispensable pour à peu près toutes les démarches (banque, forfait postpayé, assurance santé).",''],
+   ['s9','Checklist ARC','ARC',"Vérifier mon type de visa (D-2, D-4...), passeport, documents demandés, enregistrer ma résidence, réserver le rendez-vous immigration, faire la procédure, vérifier les infos sur la carte, garder une copie de tout. ⚠️ Les documents exacts changent selon le visa et la nationalité : vérifie toujours sur le site officiel de l'immigration avant ton rendez-vous.",''],
+   ['s10','Ouvrir un compte','Banque',"Généralement demandé : ARC, passeport, certificat d'inscription universitaire, numéro de téléphone coréen. Sans ARC, certaines banques limitent fortement le compte.",''],
+   ['s11','Gérer son argent','Banque',"Garde ta carte française pour le début (attention aux frais). Sur place : carte coréenne, KakaoPay, Naver Pay, Toss. La Corée est très peu cash, mais garde un peu d'espèces pour les petits marchés.",''],
+   ['s12','Je suis malade','Santé',"Clinique (의원) pour les petits soucis, hôpital (병원) pour le reste. Pharmacie = 약국. Papago pour traduire les symptômes. Beaucoup de cliniques dans les quartiers étudiants ont du personnel anglophone.",''],
+   ['s13','Assurance santé','Santé',"Assurance voyage/étudiante avant de partir, et renseigne-toi sur le NHIS (assurance maladie nationale) : les résidents étrangers sont concernés selon leur situation, et le NHIS a des guichets dédiés aux étrangers.",''],
+   ['s14','Numéros d\'urgence','Urgences',"112 police · 119 ambulance et pompiers · 1339 informations médicales. Note aussi le numéro de ton ambassade et celui du bureau international de ta fac.",''],
+   ['s15','J\'ai perdu quelque chose','Urgences',"Passeport perdu → ambassade immédiatement. Téléphone → Find My / centre objets trouvés du métro (très efficace en Corée). Carte bancaire → opposition depuis l'app de ta banque en premier.",''],
+   ['s16','Carte T-money','Transport',"À acheter dès l'arrivée dans n'importe quel convenience store (CU, GS25, 7-Eleven). Marche dans le métro, les bus et même certains taxis. Recharge en espèces au comptoir ou en borne.",''],
+   ['s17','Se déplacer','Transport',"Métro et bus pour le quotidien, KTX pour les grandes distances, bus interurbains moins chers, Kakao T pour les taxis. Le métro s'arrête vers minuit : prévois ton retour de soirée.",''],
+   ['s18','Les applis à installer J-1','Applis',"Naver Map et KakaoMap (Google Maps ne marche pas bien en Corée), Papago (traduction), KakaoTalk (tout le monde l'utilise), Kakao T (taxi), Korail (trains), Coupang Eats ou Baemin (livraison), Toss (paiements).",''],
+   ['s19','Carte SIM','Carte SIM',"À l'arrivée : eSIM ou SIM touristique pour avoir internet tout de suite à l'aéroport. Ensuite : forfait coréen. Prépayé = passeport suffit en général ; postpayé = ARC requise. Chingu Mobile est pensé pour les étrangers.",'https://chingumobile.com'],
+   ['s20','Les phrases de base','Coréen',"안녕하세요 bonjour · 감사합니다 merci · 죄송합니다 désolé · 이거 얼마예요? combien ça coûte ? · 화장실 어디예요? où sont les toilettes ? · 영어 할 수 있어요? vous parlez anglais ? · 한국어 잘 못해요 je ne parle pas bien coréen.",''],
+   ['s21','Ce qu\'on découvre sur place','Vie quotidienne',"Tri des déchets très strict (sacs payants par quartier), laverie automatique, livraison ultra rapide, convenience stores ouverts 24h qui dépannent pour tout, impression de documents dans les CU/GS25.",''],
+   ['s22','Où rencontrer du monde','Rencontrer du monde',"À la fac : clubs étudiants, buddy program, associations internationales, cours de langue. En dehors : language exchange, cafés linguistiques, sport, rando, bénévolat. Conseil : ne reste pas qu'avec des internationaux, va là où il y a des Coréens.",''],
+   ['s23','Sortir à Séoul','Sortir',"Hongdae = ambiance étudiante, bars et clubs abordables. Itaewon = international. Gangnam = plus premium. Déroulé typique d'une soirée : dîner → 술집 → deuxième bar → noraebang (karaoké).",''],
+   ['s24','Sécurité en soirée','Sortir',"Téléphone chargé, partage ta localisation avec une amie, prévois ton retour (le métro ferme vers minuit), ne laisse pas ton verre sans surveillance, rentre accompagnée si possible.",'']
+  ];
+  const seeded=new Set(tips.map(t=>t.id));
+  SEED.forEach(([id,title,cat,note,link])=>{ if(!seeded.has(id)) tips.push({id,title,cat,note,link,price:null}); });
   // migration depuis l'ancienne version sans mois
   if(Object.keys(budgetData).length===0){
     try{
@@ -366,14 +489,28 @@ function save(){
   try{ localStorage.setItem('seoul_budget_v2',JSON.stringify(budgetData)); }catch(e){ alert("Stockage plein : essaie avec des photos de reçus plus légères."); }
   try{ localStorage.setItem('seoul_predep',JSON.stringify(predepData)); }catch(e){}
   try{ localStorage.setItem('seoul_tips',JSON.stringify(tips)); }catch(e){}
+  try{ localStorage.setItem('seoul_itincats',JSON.stringify(ITIN_CATS)); }catch(e){}
 }
 
 function renderChips(){
   const el=document.getElementById('itin-chips');
   const cats=["Tout",...ITIN_CATS];
-  el.innerHTML=cats.map(c=>`<div class="chip ${c===curFilter?'active':''}" onclick="setFilter('${c}')">${c}</div>`).join('');
+  el.innerHTML=cats.map(c=>`<div class="chip ${c===curFilter?'active':''}" onclick="setFilter('${c}')">${c}</div>`).join('')
+    +`<div class="chip" onclick="manageCats()" style="border-style:dashed">⚙️ Catégories</div>`;
 }
 function setFilter(c){ curFilter=c; renderChips(); renderItin(); }
+function manageCats(){
+  const action=prompt("Tape le nom d'une NOUVELLE catégorie à ajouter,\nou le nom exact d'une catégorie existante pour la SUPPRIMER.\n\nActuelles : "+ITIN_CATS.join(', '));
+  if(!action) return;
+  const name=action.trim();
+  const i=ITIN_CATS.indexOf(name);
+  if(i>-1){
+    if(itin.some(t=>t.cat===name)){ alert("Impossible : des éléments utilisent encore cette catégorie."); return; }
+    ITIN_CATS.splice(i,1);
+    if(curFilter===name) curFilter="Tout";
+  } else { ITIN_CATS.push(name); }
+  save(); renderChips(); renderItin();
+}
 
 function renderItin(){
   const list=document.getElementById('itin-list');
@@ -488,10 +625,28 @@ function renderBudgetLike(source){
     const label=new Date(y,m-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
     head=`<div class="row" style="margin-top:0;text-transform:capitalize"><span>${label}</span><span></span></div>`;
   }
+  const parts=cats.map(c=>({name:c,val:dataObj[c].expenses.reduce((s,e)=>s+e.amount,0)})).filter(p=>p.val>0);
+  const palette=['#e88fb5','#b9a6e0','#f0b7a0','#8fd0c4','#f2d17c','#a8c4ea','#d99fc9','#9fd9a8'];
+  let pie='';
+  if(parts.length){
+    let acc=0, segs='', legend='';
+    parts.forEach((p,idx)=>{
+      const frac=p.val/totalSpent, dash=frac*100, col=palette[idx%palette.length];
+      segs+=`<circle r="15.9" cx="18" cy="18" fill="none" stroke="${col}" stroke-width="6"
+        stroke-dasharray="${dash.toFixed(2)} ${(100-dash).toFixed(2)}" stroke-dashoffset="${(25-acc).toFixed(2)}"/>`;
+      legend+=`<div style="display:flex;align-items:center;gap:5px;font-size:.72rem;margin-bottom:2px">
+        <span style="width:9px;height:9px;border-radius:2px;background:${col};flex:none"></span>
+        <span style="flex:1">${p.name}</span><b>${Math.round(frac*100)}%</b></div>`;
+      acc+=dash;
+    });
+    pie=`<div style="display:flex;gap:12px;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.3)">
+      <svg viewBox="0 0 36 36" style="width:88px;height:88px;flex:none;transform:rotate(-90deg)">${segs}</svg>
+      <div style="flex:1;min-width:0">${legend}</div></div>`;
+  }
   document.getElementById(summaryId).innerHTML=`${head}
     <div class="big">${totalSpent.toFixed(0)} € dépensés</div>
     <div class="row"><span>${source==='predep'?'Estimé':'Budget'} total</span><span>${totalLimit.toFixed(0)} €</span></div>
-    <div class="row"><span>Restant</span><span>${remain.toFixed(0)} €</span></div>`;
+    <div class="row"><span>Restant</span><span>${remain.toFixed(0)} €</span></div>${pie}`;
 }
 function renderBudget(){ renderBudgetLike('budget'); }
 function renderPredep(){ renderBudgetLike('predep'); }
@@ -544,8 +699,12 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.getElementById('view-tips').classList.toggle('active',curTab==='tips');
 }));
 document.getElementById('fab').addEventListener('click',()=>{
-  if(curTab==='itin'){ document.getElementById('sheet-itin').classList.add('active'); return; }
-  if(curTab==='tips'){ document.getElementById('sheet-tips').classList.add('active'); return; }
+  if(curTab==='itin'){
+    document.getElementById('f-cat').innerHTML=ITIN_CATS.map(c=>`<option>${c}</option>`).join('');
+    document.getElementById('sheet-itin').classList.add('active'); return; }
+  if(curTab==='tips'){
+    document.getElementById('t-cat').innerHTML=TIP_CATS.map(c=>`<option>${c}</option>`).join('');
+    document.getElementById('sheet-tips').classList.add('active'); return; }
   sheetMode = curTab==='predep' ? 'predep' : 'budget';
   const cats = sheetMode==='predep' ? PRE_CATS : BUD_CATS;
   document.getElementById('b-cat').innerHTML = cats.map(c=>`<option>${c}</option>`).join('');
