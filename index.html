@@ -447,7 +447,7 @@ const UI={
    spent:"dépensés",budgetTotal:"Budget total",estTotal:"Estimé total",remain:"Restant",estimated:"estimé",noExpMonth:"Aucune dépense ce mois-ci.",noExpPre:"Aucune dépense pour le moment.",predepHead:"Budget avant départ",
    tipTitle:"Ajouter un conseil",fTName:"Titre",fTNote:"Astuce / détails",fTLink:"Lien (optionnel)",fTPrice:"Prix (optionnel, €)",emptyTips:"Pas encore de conseils.<br>Appuie sur + pour ajouter ton premier tip 💡",
    checklist:"Checklist",usefulLinks:"Liens utiles",close:"Fermer",openLink:"Ouvrir le lien",noDesc:"Sans description",
-   expenses:"Dépenses",income:"Revenus",addIncome:"Ajouter un revenu",fSource:"Source",monthGoal:"Objectif du mois (€, optionnel)",remainToZero:"avant d'arriver à 0 €",totalIncome:"Revenus du mois",vsExpenses:"Dépenses vs revenus",manageBudgetCats:"⚙️ Gérer les catégories",noIncome:"Aucun revenu ajouté ce mois-ci.",newCat:"＋ Nouvelle catégorie...",newCatPrompt:"Nom de la nouvelle catégorie :"},
+   expenses:"Dépenses",income:"Revenus",addIncome:"Ajouter un revenu",fSource:"Source",monthGoal:"Objectif du mois (€, optionnel)",remainToZero:"avant d'arriver à 0 €",totalIncome:"Revenus du mois",vsExpenses:"Dépenses vs revenus",manageBudgetCats:"⚙️ Gérer les catégories",noIncome:"Aucun revenu ajouté ce mois-ci.",newCat:"＋ Nouvelle catégorie...",newCatPrompt:"Nom de la nouvelle catégorie :",monthlyHistory:"Historique mensuel"},
  en:{tabItin:"Itinerary",tabPredep:"Before departure",tabBudget:"Budget",tabTips:"Tips",
    itinTitle:"Add to itinerary",fName:"Name",fCat:"Category",fNote:"Note (optional)",fPlace:"Place (for Naver Map)",fNavlink:"Or paste a Naver Map link (optional)",
    cancel:"Cancel",add:"Add",emptyItin:"Nothing yet.<br>Tap + to add something you want to do in Seoul 🌷",
@@ -456,7 +456,7 @@ const UI={
    spent:"spent",budgetTotal:"Total budget",estTotal:"Total estimate",remain:"Remaining",estimated:"estimated",noExpMonth:"No expenses this month.",noExpPre:"No expenses yet.",predepHead:"Pre-departure budget",
    tipTitle:"Add a tip",fTName:"Title",fTNote:"Tip / details",fTLink:"Link (optional)",fTPrice:"Price (optional, €)",emptyTips:"No tips yet.<br>Tap + to add your first tip 💡",
    checklist:"Checklist",usefulLinks:"Useful links",close:"Close",openLink:"Open link",noDesc:"No description",
-   expenses:"Expenses",income:"Income",addIncome:"Add income",fSource:"Source",monthGoal:"Monthly goal (€, optional)",remainToZero:"before hitting €0",totalIncome:"Income this month",vsExpenses:"Expenses vs income",manageBudgetCats:"⚙️ Manage categories",noIncome:"No income added this month.",newCat:"+ New category...",newCatPrompt:"Name of the new category:"},
+   expenses:"Expenses",income:"Income",addIncome:"Add income",fSource:"Source",monthGoal:"Monthly goal (€, optional)",remainToZero:"before hitting €0",totalIncome:"Income this month",vsExpenses:"Expenses vs income",manageBudgetCats:"⚙️ Manage categories",noIncome:"No income added this month.",newCat:"+ New category...",newCatPrompt:"Name of the new category:",monthlyHistory:"Monthly history"},
  ko:{tabItin:"일정",tabPredep:"출국 전",tabBudget:"예산",tabTips:"꿀팁",
    itinTitle:"일정에 추가",fName:"이름",fCat:"카테고리",fNote:"메모 (선택)",fPlace:"장소 (네이버 지도용)",fNavlink:"또는 네이버 지도 링크 붙여넣기 (선택)",
    cancel:"취소",add:"추가",emptyItin:"아직 없어요.<br>+ 버튼을 눌러 서울에서 하고 싶은 것을 추가하세요 🌷",
@@ -465,7 +465,7 @@ const UI={
    spent:"지출",budgetTotal:"총 예산",estTotal:"총 예상 금액",remain:"남은 금액",estimated:"예상",noExpMonth:"이번 달 지출이 없습니다.",noExpPre:"아직 지출이 없습니다.",predepHead:"출국 전 예산",
    tipTitle:"꿀팁 추가",fTName:"제목",fTNote:"팁 / 상세 내용",fTLink:"링크 (선택)",fTPrice:"가격 (선택, €)",emptyTips:"아직 꿀팁이 없어요.<br>+ 버튼을 눌러 첫 팁을 추가하세요 💡",
    checklist:"체크리스트",usefulLinks:"유용한 링크",close:"닫기",openLink:"링크 열기",noDesc:"설명 없음",
-   expenses:"지출",income:"수입",addIncome:"수입 추가",fSource:"출처",monthGoal:"이번 달 목표 (€, 선택)",remainToZero:"0€까지 남음",totalIncome:"이번 달 수입",vsExpenses:"지출 vs 수입",manageBudgetCats:"⚙️ 카테고리 관리",noIncome:"이번 달 등록된 수입이 없습니다.",newCat:"+ 새 카테고리...",newCatPrompt:"새 카테고리 이름:"}
+   expenses:"지출",income:"수입",addIncome:"수입 추가",fSource:"출처",monthGoal:"이번 달 목표 (€, 선택)",remainToZero:"0€까지 남음",totalIncome:"이번 달 수입",vsExpenses:"지출 vs 수입",manageBudgetCats:"⚙️ 카테고리 관리",noIncome:"이번 달 등록된 수입이 없습니다.",newCat:"+ 새 카테고리...",newCatPrompt:"새 카테고리 이름:",monthlyHistory:"월별 내역"}
 };
 const CAT_LABELS={
  en:{"Shopping":"Shopping","Restaurant":"Restaurant","Café":"Café","Activités":"Activities","Beauté / Soins":"Beauty / Wellness","Bar":"Bar","Brunch":"Brunch","Musée":"Museum",
@@ -818,12 +818,32 @@ function renderBudgetLike(source){
         <span style="width:56px;text-align:right">${totalSpent.toFixed(0)} €</span>
       </div>
     </div>`;
+  } else if(source==='income'){
+    const monthKeys = Object.keys(incomeData).filter(k=>incomeData[k]&&typeof incomeData[k]==='object').sort();
+    const monthTotals = monthKeys.map(k=>({k,total:INCOME_CATS.reduce((s,c)=>s+(incomeData[k][c]?incomeData[k][c].expenses.reduce((s2,e)=>s2+e.amount,0):0),0)})).filter(o=>o.total>0);
+    if(monthTotals.length){
+      const maxV=Math.max(...monthTotals.map(o=>o.total),1);
+      extra=`<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.3)">
+        <div style="font-size:.72rem;opacity:.9;margin-bottom:6px">${t('monthlyHistory')}</div>
+        ${monthTotals.map(o=>{
+          const [y,m]=o.k.split('-');
+          const lbl=new Date(y,m-1,1).toLocaleDateString(LANG==='ko'?'ko-KR':LANG==='en'?'en-US':'fr-FR',{month:'short',year:'2-digit'});
+          const isCur=o.k===curMonth;
+          return `<div style="display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.72rem;cursor:pointer;${isCur?'font-weight:700':''}" onclick="jumpToMonth('${o.k}')">
+            <span style="width:48px;text-transform:capitalize">${lbl}</span>
+            <div style="flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden"><div style="height:100%;width:${(o.total/maxV*100).toFixed(0)}%;background:#8fd0c4"></div></div>
+            <span style="width:56px;text-align:right">${o.total.toFixed(0)} €</span>
+          </div>`;
+        }).join('')}
+      </div>`;
+    }
   }
   document.getElementById(summaryId).innerHTML=`${head}
     <div class="big">${totalSpent.toFixed(0)} € ${isIncome?t('income').toLowerCase():t('spent')}</div>
     ${isIncome?'':`<div class="row"><span>${source==='predep'?t('estTotal'):t('budgetTotal')}</span><span>${totalLimit.toFixed(0)} €</span></div>
     <div class="row"><span>${t('remain')}</span><span>${remain.toFixed(0)} €</span></div>`}${pie}${extra}`;
 }
+function jumpToMonth(k){ curMonth=k; document.getElementById('month-input').value=k; ensureMonth(k); openCat=null; renderBudgetView(); }
 function setMonthGoal(val){ budgetData[curMonth].__goal=Number(val)||0; save(); renderBudgetLike('budget'); }
 function renderBudget(){ renderBudgetLike('budget'); }
 function renderIncome(){ renderBudgetLike('income'); }
