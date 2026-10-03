@@ -117,15 +117,60 @@ select option{color:#000;}
 </header>
 <main>
   <div class="view" id="view-itin">
-    <div class="chips" id="itin-chips"><div class="chip active" onclick="setFilter('Tout')">Tout</div><div class="chip " onclick="setFilter('Shopping')">Shopping</div><div class="chip " onclick="setFilter('Restaurant')">Restaurant</div><div class="chip " onclick="setFilter('Café')">Café</div><div class="chip " onclick="setFilter('Activités')">Activités</div><div class="chip " onclick="setFilter('Beauté / Soins')">Beauté / Soins</div><div class="chip " onclick="setFilter('Bar')">Bar</div><div class="chip " onclick="setFilter('Brunch')">Brunch</div><div class="chip " onclick="setFilter('Musée')">Musée</div><div class="chip" onclick="manageCats()" style="border-style:dashed">⚙️ Catégories</div></div>
-    <div id="itin-list"><div class="empty">Rien pour l'instant.<br>Appuie sur + pour ajouter une envie à Séoul 🌷</div></div>
+    <div class="chips" id="itin-subtabs"><div class="chip active" onclick="setItinSubView('places')">Adresses</div>
+    <div class="chip " onclick="setItinSubView('beauty')">Routine beauté</div></div>
+    <div id="itin-wrap-places">
+      <div class="chips" id="itin-chips"><div class="chip active" onclick="setFilter('Tout')">Tout</div><div class="chip " onclick="setFilter('Shopping')">Shopping</div><div class="chip " onclick="setFilter('Restaurant')">Restaurant</div><div class="chip " onclick="setFilter('Café')">Café</div><div class="chip " onclick="setFilter('Activités')">Activités</div><div class="chip " onclick="setFilter('Beauté / Soins')">Beauté / Soins</div><div class="chip " onclick="setFilter('Bar')">Bar</div><div class="chip " onclick="setFilter('Brunch')">Brunch</div><div class="chip " onclick="setFilter('Musée')">Musée</div><div class="chip" onclick="manageCats()" style="border-style:dashed">⚙️ Catégories</div></div>
+      <div id="itin-list"><div class="empty">Rien pour l'instant.<br>Appuie sur + pour ajouter une envie à Séoul 🌷</div></div>
+    </div>
+    <div id="itin-wrap-beauty" style="display:none">
+      <div class="summary" id="beauty-summary">
+    <div class="row" style="margin-top:0;text-transform:capitalize"><span>février 2027</span><span></span></div>
+    <div class="big">0 €</div>
+    <div class="row"><span>Budget beauté du mois</span><span></span></div></div>
+      <div style="display:flex;gap:8px;margin:14px 0">
+        <input id="beauty-name-input" style="flex:2;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem" placeholder="Ex : épilation corps">
+        <input id="beauty-price-input" type="number" inputmode="decimal" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem" placeholder="€">
+        <button onclick="addBeauty()" style="background:var(--pink);color:#fff;border:none;border-radius:10px;width:42px;font-size:1.2rem">+</button>
+      </div>
+      <div id="beauty-list"><div class="item ">
+      <div class="item-check" onclick="toggleBeauty('bs1')"></div>
+      <div class="item-body"><div class="item-name">Épilation corps</div></div>
+      <input type="number" inputmode="decimal" style="width:64px;text-align:right;padding:5px 6px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.82rem" placeholder="€" onchange="setBeautyPrice('bs1',this.value)">
+      <button class="del" onclick="delBeauty('bs1')">×</button>
+    </div><div class="item ">
+      <div class="item-check" onclick="toggleBeauty('bs2')"></div>
+      <div class="item-body"><div class="item-name">Ongles mains</div></div>
+      <input type="number" inputmode="decimal" style="width:64px;text-align:right;padding:5px 6px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.82rem" placeholder="€" onchange="setBeautyPrice('bs2',this.value)">
+      <button class="del" onclick="delBeauty('bs2')">×</button>
+    </div><div class="item ">
+      <div class="item-check" onclick="toggleBeauty('bs3')"></div>
+      <div class="item-body"><div class="item-name">Ongles pieds</div></div>
+      <input type="number" inputmode="decimal" style="width:64px;text-align:right;padding:5px 6px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.82rem" placeholder="€" onchange="setBeautyPrice('bs3',this.value)">
+      <button class="del" onclick="delBeauty('bs3')">×</button>
+    </div><div class="item ">
+      <div class="item-check" onclick="toggleBeauty('bs4')"></div>
+      <div class="item-body"><div class="item-name">Extension de cils</div></div>
+      <input type="number" inputmode="decimal" style="width:64px;text-align:right;padding:5px 6px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.82rem" placeholder="€" onchange="setBeautyPrice('bs4',this.value)">
+      <button class="del" onclick="delBeauty('bs4')">×</button>
+    </div><div class="item ">
+      <div class="item-check" onclick="toggleBeauty('bs5')"></div>
+      <div class="item-body"><div class="item-name">Soin visage</div></div>
+      <input type="number" inputmode="decimal" style="width:64px;text-align:right;padding:5px 6px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.82rem" placeholder="€" onchange="setBeautyPrice('bs5',this.value)">
+      <button class="del" onclick="delBeauty('bs5')">×</button>
+    </div></div>
+    </div>
   </div>
   <div class="view active" id="view-predep">
-    <div class="summary" id="predep-summary"><div class="row" style="margin-top:0"><span>Budget avant départ</span><span></span></div>
+    <div class="chips" id="predep-subtabs"><div class="chip active" onclick="setPredepSubView('budget')">Budget</div>
+    <div class="chip " onclick="setPredepSubView('todo')">À faire</div>
+    <div class="chip " onclick="setPredepSubView('shop')">À acheter</div></div>
+    <div id="predep-wrap-budget">
+      <div class="summary" id="predep-summary"><div class="row" style="margin-top:0"><span>Budget avant départ</span><span></span></div>
     <div class="big">0 € dépensés</div>
     <div class="row"><span>Estimé total</span><span>0 €</span></div>
     <div class="row"><span>Restant</span><span>0 €</span></div></div>
-    <div id="predep-list"><div class="budget-card">
+      <div id="predep-list"><div class="budget-card">
       <div class="budget-top" style="cursor:pointer" onclick="toggleCat('predep','Billet d\'avion')">
         <span class="budget-cat">Billet d'avion </span>
         <input type="number" inputmode="decimal" style="width:80px;text-align:right;padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;" placeholder="estimé" onclick="event.stopPropagation()" onchange="setLimit('predep','Billet d\'avion',this.value)">
@@ -174,17 +219,32 @@ select option{color:#000;}
       <div class="budget-nums">0 € dépensés </div>
       <div class="expenses "><div class="exp-desc">Aucune dépense pour le moment.</div></div>
     </div></div>
+    </div>
+    <div id="predep-wrap-todo" style="display:none">
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <input id="todo-input" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem" placeholder="Ex : renouveler mon passeport">
+        <button onclick="addTodo()" style="background:var(--pink);color:#fff;border:none;border-radius:10px;width:42px;font-size:1.2rem">+</button>
+      </div>
+      <div id="todo-list"><div class="empty">Rien pour l'instant.<br>Ajoute ta première tâche avant le départ ✈️</div></div>
+    </div>
+    <div id="predep-wrap-shop" style="display:none">
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <input id="shop-input" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem" placeholder="Ex : adaptateur prise coréenne">
+        <button onclick="addShop()" style="background:var(--pink);color:#fff;border:none;border-radius:10px;width:42px;font-size:1.2rem">+</button>
+      </div>
+      <div id="shop-list"><div class="empty">Rien pour l'instant.<br>Ajoute ce qu'il te faut acheter avant de partir 🛍️</div></div>
+    </div>
   </div>
   <div class="view" id="view-budget">
     <div class="month-picker">
       <button onclick="shiftMonth(-1)">‹</button>
-      <input type="month" id="month-input" value="2026-09">
+      <input type="month" id="month-input" value="2027-02">
       <button onclick="shiftMonth(1)">›</button>
     </div>
     <div class="chips" id="budget-subtabs"><div class="chip active" onclick="setBudgetSubView('budget')">Dépenses</div>
     <div class="chip " onclick="setBudgetSubView('income')">Revenus</div>
     <div class="chip" onclick="manageBudgetCats()" style="border-style:dashed">⚙️ Gérer les catégories</div></div>
-    <div class="summary" id="budget-summary"><div class="row" style="margin-top:0;text-transform:capitalize"><span>septembre 2026</span><span></span></div>
+    <div class="summary" id="budget-summary"><div class="row" style="margin-top:0;text-transform:capitalize"><span>février 2027</span><span></span></div>
     <div class="big">0 € dépensés</div>
     <div class="row"><span>Budget total</span><span>0 €</span></div>
     <div class="row"><span>Restant</span><span>0 €</span></div><div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.3)">
@@ -447,7 +507,7 @@ const UI={
    spent:"dépensés",budgetTotal:"Budget total",estTotal:"Estimé total",remain:"Restant",estimated:"estimé",noExpMonth:"Aucune dépense ce mois-ci.",noExpPre:"Aucune dépense pour le moment.",predepHead:"Budget avant départ",
    tipTitle:"Ajouter un conseil",fTName:"Titre",fTNote:"Astuce / détails",fTLink:"Lien (optionnel)",fTPrice:"Prix (optionnel, €)",emptyTips:"Pas encore de conseils.<br>Appuie sur + pour ajouter ton premier tip 💡",
    checklist:"Checklist",usefulLinks:"Liens utiles",close:"Fermer",openLink:"Ouvrir le lien",noDesc:"Sans description",
-   expenses:"Dépenses",income:"Revenus",addIncome:"Ajouter un revenu",fSource:"Source",monthGoal:"Objectif du mois (€, optionnel)",remainToZero:"avant d'arriver à 0 €",totalIncome:"Revenus du mois",vsExpenses:"Dépenses vs revenus",manageBudgetCats:"⚙️ Gérer les catégories",noIncome:"Aucun revenu ajouté ce mois-ci.",newCat:"＋ Nouvelle catégorie...",newCatPrompt:"Nom de la nouvelle catégorie :"},
+   expenses:"Dépenses",income:"Revenus",addIncome:"Ajouter un revenu",fSource:"Source",monthGoal:"Objectif du mois (€, optionnel)",remainToZero:"avant d'arriver à 0 €",totalIncome:"Revenus du mois",vsExpenses:"Dépenses vs revenus",manageBudgetCats:"⚙️ Gérer les catégories",noIncome:"Aucun revenu ajouté ce mois-ci.",newCat:"＋ Nouvelle catégorie...",newCatPrompt:"Nom de la nouvelle catégorie :",monthlyHistory:"Historique mensuel",predepBudgetTab:"Budget",predepTodoTab:"À faire",predepShopTab:"À acheter",todoPlaceholder:"Ex : renouveler mon passeport",shopPlaceholder:"Ex : adaptateur prise coréenne",emptyTodo:"Rien pour l'instant.<br>Ajoute ta première tâche avant le départ ✈️",emptyShop:"Rien pour l'instant.<br>Ajoute ce qu'il te faut acheter avant de partir 🛍️",placesTab:"Adresses",beautyTab:"Routine beauté",beautyNamePh:"Ex : épilation corps",beautyBudget:"Budget beauté du mois",emptyBeauty:"Rien pour l'instant.<br>Ajoute les prestations indispensables de ton mois (épilation, ongles, cils, soin visage...) 💅"},
  en:{tabItin:"Itinerary",tabPredep:"Before departure",tabBudget:"Budget",tabTips:"Tips",
    itinTitle:"Add to itinerary",fName:"Name",fCat:"Category",fNote:"Note (optional)",fPlace:"Place (for Naver Map)",fNavlink:"Or paste a Naver Map link (optional)",
    cancel:"Cancel",add:"Add",emptyItin:"Nothing yet.<br>Tap + to add something you want to do in Seoul 🌷",
@@ -456,7 +516,7 @@ const UI={
    spent:"spent",budgetTotal:"Total budget",estTotal:"Total estimate",remain:"Remaining",estimated:"estimated",noExpMonth:"No expenses this month.",noExpPre:"No expenses yet.",predepHead:"Pre-departure budget",
    tipTitle:"Add a tip",fTName:"Title",fTNote:"Tip / details",fTLink:"Link (optional)",fTPrice:"Price (optional, €)",emptyTips:"No tips yet.<br>Tap + to add your first tip 💡",
    checklist:"Checklist",usefulLinks:"Useful links",close:"Close",openLink:"Open link",noDesc:"No description",
-   expenses:"Expenses",income:"Income",addIncome:"Add income",fSource:"Source",monthGoal:"Monthly goal (€, optional)",remainToZero:"before hitting €0",totalIncome:"Income this month",vsExpenses:"Expenses vs income",manageBudgetCats:"⚙️ Manage categories",noIncome:"No income added this month.",newCat:"+ New category...",newCatPrompt:"Name of the new category:"},
+   expenses:"Expenses",income:"Income",addIncome:"Add income",fSource:"Source",monthGoal:"Monthly goal (€, optional)",remainToZero:"before hitting €0",totalIncome:"Income this month",vsExpenses:"Expenses vs income",manageBudgetCats:"⚙️ Manage categories",noIncome:"No income added this month.",newCat:"+ New category...",newCatPrompt:"Name of the new category:",monthlyHistory:"Monthly history",predepBudgetTab:"Budget",predepTodoTab:"To-do",predepShopTab:"Shopping list",todoPlaceholder:"E.g. renew my passport",shopPlaceholder:"E.g. Korean plug adapter",emptyTodo:"Nothing yet.<br>Add your first pre-departure task ✈️",emptyShop:"Nothing yet.<br>Add what you need to buy before leaving 🛍️",placesTab:"Places",beautyTab:"Beauty routine",beautyNamePh:"E.g. body waxing",beautyBudget:"Beauty budget this month",emptyBeauty:"Nothing yet.<br>Add your monthly essentials (waxing, nails, lashes, facial...) 💅"},
  ko:{tabItin:"일정",tabPredep:"출국 전",tabBudget:"예산",tabTips:"꿀팁",
    itinTitle:"일정에 추가",fName:"이름",fCat:"카테고리",fNote:"메모 (선택)",fPlace:"장소 (네이버 지도용)",fNavlink:"또는 네이버 지도 링크 붙여넣기 (선택)",
    cancel:"취소",add:"추가",emptyItin:"아직 없어요.<br>+ 버튼을 눌러 서울에서 하고 싶은 것을 추가하세요 🌷",
@@ -465,7 +525,7 @@ const UI={
    spent:"지출",budgetTotal:"총 예산",estTotal:"총 예상 금액",remain:"남은 금액",estimated:"예상",noExpMonth:"이번 달 지출이 없습니다.",noExpPre:"아직 지출이 없습니다.",predepHead:"출국 전 예산",
    tipTitle:"꿀팁 추가",fTName:"제목",fTNote:"팁 / 상세 내용",fTLink:"링크 (선택)",fTPrice:"가격 (선택, €)",emptyTips:"아직 꿀팁이 없어요.<br>+ 버튼을 눌러 첫 팁을 추가하세요 💡",
    checklist:"체크리스트",usefulLinks:"유용한 링크",close:"닫기",openLink:"링크 열기",noDesc:"설명 없음",
-   expenses:"지출",income:"수입",addIncome:"수입 추가",fSource:"출처",monthGoal:"이번 달 목표 (€, 선택)",remainToZero:"0€까지 남음",totalIncome:"이번 달 수입",vsExpenses:"지출 vs 수입",manageBudgetCats:"⚙️ 카테고리 관리",noIncome:"이번 달 등록된 수입이 없습니다.",newCat:"+ 새 카테고리...",newCatPrompt:"새 카테고리 이름:"}
+   expenses:"지출",income:"수입",addIncome:"수입 추가",fSource:"출처",monthGoal:"이번 달 목표 (€, 선택)",remainToZero:"0€까지 남음",totalIncome:"이번 달 수입",vsExpenses:"지출 vs 수입",manageBudgetCats:"⚙️ 카테고리 관리",noIncome:"이번 달 등록된 수입이 없습니다.",newCat:"+ 새 카테고리...",newCatPrompt:"새 카테고리 이름:",monthlyHistory:"월별 내역",predepBudgetTab:"예산",predepTodoTab:"할 일",predepShopTab:"구매 목록",todoPlaceholder:"예: 여권 갱신하기",shopPlaceholder:"예: 한국 플러그 어댑터",emptyTodo:"아직 없어요.<br>출국 전 할 일을 추가하세요 ✈️",emptyShop:"아직 없어요.<br>출국 전 구매할 것을 추가하세요 🛍️",placesTab:"장소",beautyTab:"뷰티 루틴",beautyNamePh:"예: 바디 왁싱",beautyBudget:"이번 달 뷰티 예산",emptyBeauty:"아직 없어요.<br>매달 꼭 하는 관리(왁싱, 네일, 속눈썹, 피부관리 등)를 추가하세요 💅"}
 };
 const CAT_LABELS={
  en:{"Shopping":"Shopping","Restaurant":"Restaurant","Café":"Café","Activités":"Activities","Beauté / Soins":"Beauty / Wellness","Bar":"Bar","Brunch":"Brunch","Musée":"Museum",
@@ -491,7 +551,7 @@ let BUD_CATS=["Logement","Nourriture","Forfait téléphonique","Transports","Hô
 let PRE_CATS=["Billet d'avion","Assurance voyage","Frais de visa","Passeport","Shopping voyage","Autres"];
 let INCOME_CATS=["Bourse Erasmus","Bourse CROUS","Argent de poche","Prêt étudiant","Autres"];
 let TIP_CATS=["Logement","ARC","Banque","Santé","Transport","Carte SIM","Applis","Coréen","Vie quotidienne","Rencontrer du monde","Sortir","Urgences","Autre"];
-let itin=[],budgetData={},predepData={},incomeData={},tips=[],curTab="predep",curFilter="Tout",tipsFilter="Tout",curMonth=monthKeyNow(),curReceipt=null,openCat=null,openSource="budget",sheetMode="budget",budgetSubView="budget";
+let itin=[],budgetData={},predepData={},incomeData={},tips=[],predepTodo=[],predepShop=[],beautyServices=[],beautyDone={},curTab="predep",curFilter="Tout",tipsFilter="Tout",curMonth="2027-02",curReceipt=null,openCat=null,openSource="budget",sheetMode="budget",budgetSubView="budget",predepSubView="budget",itinSubView="places";
 
 function applyLang(){
   document.getElementById('tab-itin').textContent=t('tabItin');
@@ -521,7 +581,7 @@ function applyLang(){
   document.getElementById('btn-close-detail').textContent=t('close');
   document.querySelectorAll('.i18n-cancel').forEach(b=>b.textContent=t('cancel'));
 }
-function renderAll(){ renderChips(); renderItin(); renderBudgetSubtabs(); renderBudgetView(); renderPredep(); renderTipsChips(); renderTips(); }
+function renderAll(){ renderChips(); renderItin(); renderItinSubtabs(); renderBeauty(); renderBudgetSubtabs(); renderBudgetView(); renderPredep(); renderTodo(); renderShop(); renderTipsChips(); renderTips(); }
 function monthKeyNow(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function ensureMonth(key){
   if(!budgetData[key]) budgetData[key]={};
@@ -544,6 +604,20 @@ function load(){
   try{ budgetData=JSON.parse(localStorage.getItem('seoul_budget_v2')||'{}'); }catch(e){ budgetData={}; }
   try{ predepData=JSON.parse(localStorage.getItem('seoul_predep')||'{}'); }catch(e){ predepData={}; }
   try{ incomeData=JSON.parse(localStorage.getItem('seoul_income')||'{}'); }catch(e){ incomeData={}; }
+  try{ predepTodo=JSON.parse(localStorage.getItem('seoul_predep_todo')||'[]'); }catch(e){ predepTodo=[]; }
+  try{ predepShop=JSON.parse(localStorage.getItem('seoul_predep_shop')||'[]'); }catch(e){ predepShop=[]; }
+  try{ beautyServices=JSON.parse(localStorage.getItem('seoul_beauty_services')||'null'); }catch(e){ beautyServices=null; }
+  if(beautyServices===null){
+    beautyServices=[
+      {id:'bs1',name:'Épilation corps',price:0},
+      {id:'bs2',name:'Ongles mains',price:0},
+      {id:'bs3',name:'Ongles pieds',price:0},
+      {id:'bs4',name:'Extension de cils',price:0},
+      {id:'bs5',name:'Soin visage',price:0}
+    ];
+  }
+  try{ beautyDone=JSON.parse(localStorage.getItem('seoul_beauty_done')||'{}'); }catch(e){ beautyDone={}; }
+  if(!beautyDone[curMonth]) beautyDone[curMonth]={};
   try{ const bc=JSON.parse(localStorage.getItem('seoul_budgetcats')||'null'); if(Array.isArray(bc)&&bc.length) BUD_CATS=bc; }catch(e){}
   try{ const c=JSON.parse(localStorage.getItem('seoul_itincats')||'null'); if(Array.isArray(c)&&c.length) ITIN_CATS=c; }catch(e){}
   itin.forEach(t=>{ if(t.cat && !ITIN_CATS.includes(t.cat)) ITIN_CATS.push(t.cat); });
@@ -592,6 +666,10 @@ function save(){
   try{ localStorage.setItem('seoul_budget_v2',JSON.stringify(budgetData)); }catch(e){ alert("Stockage plein : essaie avec des photos de reçus plus légères."); }
   try{ localStorage.setItem('seoul_predep',JSON.stringify(predepData)); }catch(e){}
   try{ localStorage.setItem('seoul_income',JSON.stringify(incomeData)); }catch(e){}
+  try{ localStorage.setItem('seoul_predep_todo',JSON.stringify(predepTodo)); }catch(e){}
+  try{ localStorage.setItem('seoul_predep_shop',JSON.stringify(predepShop)); }catch(e){}
+  try{ localStorage.setItem('seoul_beauty_services',JSON.stringify(beautyServices)); }catch(e){}
+  try{ localStorage.setItem('seoul_beauty_done',JSON.stringify(beautyDone)); }catch(e){}
   try{ localStorage.setItem('seoul_budgetcats',JSON.stringify(BUD_CATS)); }catch(e){}
   try{ localStorage.setItem('seoul_tips',JSON.stringify(tips)); }catch(e){}
   try{ localStorage.setItem('seoul_itincats',JSON.stringify(ITIN_CATS)); }catch(e){}
@@ -603,6 +681,51 @@ function renderChips(){
   el.innerHTML=cats.map(c=>`<div class="chip ${c===curFilter?'active':''}" onclick="setFilter('${jsEsc(c)}')">${c==="Tout"?t('tout'):catLabel(c)}</div>`).join('')
     +`<div class="chip" onclick="manageCats()" style="border-style:dashed">${t('manageCats')}</div>`;
 }
+function renderItinSubtabs(){
+  const el=document.getElementById('itin-subtabs');
+  el.innerHTML = `<div class="chip ${itinSubView==='places'?'active':''}" onclick="setItinSubView('places')">${t('placesTab')}</div>
+    <div class="chip ${itinSubView==='beauty'?'active':''}" onclick="setItinSubView('beauty')">${t('beautyTab')}</div>`;
+}
+function setItinSubView(v){
+  itinSubView=v;
+  document.getElementById('itin-wrap-places').style.display = v==='places'?'':'none';
+  document.getElementById('itin-wrap-beauty').style.display = v==='beauty'?'':'none';
+  document.getElementById('fab').style.display = v==='beauty'?'none':'';
+  renderItinSubtabs();
+  if(v==='beauty') renderBeauty();
+}
+function renderBeauty(){
+  if(!beautyDone[curMonth]) beautyDone[curMonth]={};
+  const total = beautyServices.reduce((s,sv)=>s+(Number(sv.price)||0),0);
+  const [y,m]=curMonth.split('-');
+  const label=new Date(y,m-1,1).toLocaleDateString(LANG==='ko'?'ko-KR':LANG==='en'?'en-US':'fr-FR',{month:'long',year:'numeric'});
+  document.getElementById('beauty-summary').innerHTML = `
+    <div class="row" style="margin-top:0;text-transform:capitalize"><span>${label}</span><span></span></div>
+    <div class="big">${total.toFixed(0)} €</div>
+    <div class="row"><span>${t('beautyBudget')}</span><span></span></div>`;
+  const list=document.getElementById('beauty-list');
+  list.innerHTML = beautyServices.length ? beautyServices.map(sv=>{
+    const done = !!beautyDone[curMonth][sv.id];
+    return `<div class="item ${done?'done':''}">
+      <div class="item-check" onclick="toggleBeauty('${sv.id}')">${done?'✓':''}</div>
+      <div class="item-body"><div class="item-name">${escapeHtml(sv.name)}</div></div>
+      <input type="number" inputmode="decimal" style="width:64px;text-align:right;padding:5px 6px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.82rem" value="${sv.price||''}" placeholder="€" onchange="setBeautyPrice('${sv.id}',this.value)">
+      <button class="del" onclick="delBeauty('${sv.id}')">×</button>
+    </div>`;
+  }).join('') : `<div class="empty">${t('emptyBeauty')}</div>`;
+  document.getElementById('beauty-name-input').placeholder = t('beautyNamePh');
+}
+function addBeauty(){
+  const name=document.getElementById('beauty-name-input').value.trim();
+  if(!name) return;
+  const price=Number(document.getElementById('beauty-price-input').value)||0;
+  beautyServices.push({id:Date.now().toString(),name,price});
+  document.getElementById('beauty-name-input').value=''; document.getElementById('beauty-price-input').value='';
+  save(); renderBeauty();
+}
+function setBeautyPrice(id,val){ const sv=beautyServices.find(x=>x.id===id); if(sv){ sv.price=Number(val)||0; save(); renderBeauty(); } }
+function toggleBeauty(id){ if(!beautyDone[curMonth]) beautyDone[curMonth]={}; beautyDone[curMonth][id]=!beautyDone[curMonth][id]; save(); renderBeauty(); }
+function delBeauty(id){ beautyServices=beautyServices.filter(x=>x.id!==id); save(); renderBeauty(); }
 function setFilter(c){ curFilter=c; renderChips(); renderItin(); }
 function manageCats(){
   const action=prompt("Tape le nom d'une NOUVELLE catégorie à ajouter,\nou le nom exact d'une catégorie existante pour la SUPPRIMER.\n\nActuelles : "+ITIN_CATS.join(', '));
@@ -818,17 +941,67 @@ function renderBudgetLike(source){
         <span style="width:56px;text-align:right">${totalSpent.toFixed(0)} €</span>
       </div>
     </div>`;
+  } else if(source==='income'){
+    const monthKeys = Object.keys(incomeData).filter(k=>incomeData[k]&&typeof incomeData[k]==='object').sort();
+    const monthTotals = monthKeys.map(k=>({k,total:INCOME_CATS.reduce((s,c)=>s+(incomeData[k][c]?incomeData[k][c].expenses.reduce((s2,e)=>s2+e.amount,0):0),0)})).filter(o=>o.total>0);
+    if(monthTotals.length){
+      const maxV=Math.max(...monthTotals.map(o=>o.total),1);
+      extra=`<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.3)">
+        <div style="font-size:.72rem;opacity:.9;margin-bottom:6px">${t('monthlyHistory')}</div>
+        ${monthTotals.map(o=>{
+          const [y,m]=o.k.split('-');
+          const lbl=new Date(y,m-1,1).toLocaleDateString(LANG==='ko'?'ko-KR':LANG==='en'?'en-US':'fr-FR',{month:'short',year:'2-digit'});
+          const isCur=o.k===curMonth;
+          return `<div style="display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.72rem;cursor:pointer;${isCur?'font-weight:700':''}" onclick="jumpToMonth('${o.k}')">
+            <span style="width:48px;text-transform:capitalize">${lbl}</span>
+            <div style="flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden"><div style="height:100%;width:${(o.total/maxV*100).toFixed(0)}%;background:#8fd0c4"></div></div>
+            <span style="width:56px;text-align:right">${o.total.toFixed(0)} €</span>
+          </div>`;
+        }).join('')}
+      </div>`;
+    }
   }
   document.getElementById(summaryId).innerHTML=`${head}
     <div class="big">${totalSpent.toFixed(0)} € ${isIncome?t('income').toLowerCase():t('spent')}</div>
     ${isIncome?'':`<div class="row"><span>${source==='predep'?t('estTotal'):t('budgetTotal')}</span><span>${totalLimit.toFixed(0)} €</span></div>
     <div class="row"><span>${t('remain')}</span><span>${remain.toFixed(0)} €</span></div>`}${pie}${extra}`;
 }
+function jumpToMonth(k){ curMonth=k; document.getElementById('month-input').value=k; ensureMonth(k); openCat=null; renderBudgetView(); }
 function setMonthGoal(val){ budgetData[curMonth].__goal=Number(val)||0; save(); renderBudgetLike('budget'); }
 function renderBudget(){ renderBudgetLike('budget'); }
 function renderIncome(){ renderBudgetLike('income'); }
 function renderBudgetView(){ renderBudgetLike(budgetSubView); }
-function renderPredep(){ renderBudgetLike('predep'); }
+function renderPredep(){ renderBudgetLike('predep'); renderPredepSubtabs(); }
+function renderPredepSubtabs(){
+  const el=document.getElementById('predep-subtabs');
+  el.innerHTML = `<div class="chip ${predepSubView==='budget'?'active':''}" onclick="setPredepSubView('budget')">${t('predepBudgetTab')}</div>
+    <div class="chip ${predepSubView==='todo'?'active':''}" onclick="setPredepSubView('todo')">${t('predepTodoTab')}</div>
+    <div class="chip ${predepSubView==='shop'?'active':''}" onclick="setPredepSubView('shop')">${t('predepShopTab')}</div>`;
+}
+function setPredepSubView(v){
+  predepSubView=v;
+  document.getElementById('predep-wrap-budget').style.display = v==='budget'?'':'none';
+  document.getElementById('predep-wrap-todo').style.display = v==='todo'?'':'none';
+  document.getElementById('predep-wrap-shop').style.display = v==='shop'?'':'none';
+  renderPredepSubtabs();
+  if(v==='todo') renderTodo(); if(v==='shop') renderShop();
+}
+function simpleListHtml(arr,emptyKey,toggleFn,delFn){
+  if(!arr.length) return `<div class="empty">${t(emptyKey)}</div>`;
+  return arr.map(it=>`<div class="item ${it.done?'done':''}">
+    <div class="item-check" onclick="${toggleFn}('${it.id}')">${it.done?'✓':''}</div>
+    <div class="item-body"><div class="item-name">${escapeHtml(it.text)}</div></div>
+    <button class="del" onclick="${delFn}('${it.id}')">×</button>
+  </div>`).join('');
+}
+function renderTodo(){ document.getElementById('todo-list').innerHTML=simpleListHtml(predepTodo,'emptyTodo','toggleTodo','delTodo'); document.getElementById('todo-input').placeholder=t('todoPlaceholder'); }
+function renderShop(){ document.getElementById('shop-list').innerHTML=simpleListHtml(predepShop,'emptyShop','toggleShop','delShop'); document.getElementById('shop-input').placeholder=t('shopPlaceholder'); }
+function addTodo(){ const v=document.getElementById('todo-input').value.trim(); if(!v) return; predepTodo.push({id:Date.now().toString(),text:v,done:false}); document.getElementById('todo-input').value=''; save(); renderTodo(); }
+function toggleTodo(id){ const it=predepTodo.find(x=>x.id===id); if(it){ it.done=!it.done; save(); renderTodo(); } }
+function delTodo(id){ predepTodo=predepTodo.filter(x=>x.id!==id); save(); renderTodo(); }
+function addShop(){ const v=document.getElementById('shop-input').value.trim(); if(!v) return; predepShop.push({id:Date.now().toString(),text:v,done:false}); document.getElementById('shop-input').value=''; save(); renderShop(); }
+function toggleShop(id){ const it=predepShop.find(x=>x.id===id); if(it){ it.done=!it.done; save(); renderShop(); } }
+function delShop(id){ predepShop=predepShop.filter(x=>x.id!==id); save(); renderShop(); }
 function dataFor(source){ return source==='predep'?predepData:source==='income'?incomeData[curMonth]:budgetData[curMonth]; }
 function toggleCat(source,cat){ if(openCat===cat && openSource===source){ openCat=null; } else { openCat=cat; openSource=source; } renderBudgetLike(source); }
 function setLimit(source,cat,val){ const obj=dataFor(source); obj[cat].limit=Number(val)||0; save(); renderBudgetLike(source); }
@@ -878,6 +1051,7 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.getElementById('view-predep').classList.toggle('active',curTab==='predep');
   document.getElementById('view-budget').classList.toggle('active',curTab==='budget');
   document.getElementById('view-tips').classList.toggle('active',curTab==='tips');
+  if(curTab==='itin'){ setItinSubView(itinSubView); } else { document.getElementById('fab').style.display=''; }
 }));
 document.getElementById('fab').addEventListener('click',()=>{
   if(curTab==='itin'){
@@ -924,7 +1098,7 @@ document.getElementById('sheet-tipdetail').addEventListener('click',e=>{ if(e.ta
 load(); document.getElementById('month-input').value=curMonth;
 document.getElementById('month-input').addEventListener('change',function(){ curMonth=this.value; ensureMonth(curMonth); openCat=null; renderBudgetView(); });
 applyLang();
-renderChips(); renderItin(); renderBudgetSubtabs(); renderBudgetView(); renderPredep(); renderTipsChips(); renderTips();
+renderChips(); renderItin(); renderItinSubtabs(); renderBeauty(); renderBudgetSubtabs(); renderBudgetView(); renderPredep(); renderTodo(); renderShop(); renderTipsChips(); renderTips();
 </script>
 
 
